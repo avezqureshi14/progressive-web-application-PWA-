@@ -1,0 +1,48 @@
+Index.html
+
+A] Registering our SERVICE WORKER 📃🖋️
+
+1] First check Service Worker is supported by our Browser, if the below condition is true our Browser supports serviceWorker
+
+    <script>
+     if ('serviceWorker' in navigator) {
+        ...
+     }
+    <script>
+
+2] If it supports then we have to add Eventlistener which will listen to load event and after the pages loads it will register the service Worker in our Browser    
+
+    <script>
+     if ('serviceWorker' in navigator) {
+        window.addEventListener('load', ()=>{
+        navigator.serviceWorker.register('./serviceworker.js')
+     }
+    <script>
+
+3] The line no. 18 returns a Promise
+    So we have to detect whether our promise is getting Success or failure 
+
+    <script>
+     if ('serviceWorker' in navigator) {
+        window.addEventListener('load', ()=>{
+        navigator.serviceWorker.register('./serviceworker.js')
+            ⬇️⬇️⬇️⬇️ 🟢 IF IT GETS SUCCESSFULL THEN WE HAVE TO PRINT Success AND (reg.scope) WHICH MEANS TO DISPLAY URL ON WHICH SERVER WORKER WAS INSTALLED 
+            .then((reg)=>console.log('Success: ',reg.scope))
+
+            ⬇️⬇️⬇️⬇️ 🔴 IF IT GETS FAILED THEN WE HAVE TO PRINT FAILURE AND error
+            .catch((err)=>console.log('Failure: ', err))
+     }
+    <script>
+
+B] Moving to the file serviceworker.js
+
+We are going to first create a cache name, cache stands for storage of the browser
+Ex. If we are using Cache and an image is loaded, on first request , then we have to dosen't reload it again (on 2nd request) as it gets stored in our brower storage as this will be 
+
+const CACHE_NAME = "version-1";
+const urlsToCache = [ 'index.html', 'offline.html' ]
+➡️ offline.html = This is the page which gets displayed when the app is opened when offline 📶 
+
+B1] Installation 
+B2] Request listening
+B3] Activation
